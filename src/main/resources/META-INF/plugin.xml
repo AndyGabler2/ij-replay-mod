@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.andronikusgametech.ijreplaymod</id>
-    <name>ij-replay-mod</name>
-    <vendor>andronikusgametech</vendor>
+    <name>Coding Replay</name>
+    <vendor>AndronikusGameTech</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
