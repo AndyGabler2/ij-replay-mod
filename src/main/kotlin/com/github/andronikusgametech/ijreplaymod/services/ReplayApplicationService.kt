@@ -2,7 +2,7 @@ package com.github.andronikusgametech.ijreplaymod.services
 
 import com.github.andronikusgametech.ijreplaymod.MyBundle
 
-class MyApplicationService {
+class ReplayApplicationService {
 
     init {
         println(MyBundle.message("applicationService"))

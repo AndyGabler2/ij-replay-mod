@@ -7,12 +7,35 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.ReplayApplicationService"/>
+        <projectService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.ReplayProjectService"/>
     </extensions>
 
     <applicationListeners>
         <listener class="com.github.andronikusgametech.ijreplaymod.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <actions>
+        <group id="com.github.andronikusgametech.ijreplaymod.ReplayGroup"
+               text="Replay"
+               popup="true">
+            <action class="com.github.andronikusgametech.ijreplaymod.action.KeyFrameFileAction"
+                    id="com.github.andronikusgametech.ijreplaymod.KeyFrameFileActionId"
+                    text="Add File Key Frame" description="Add keyframe to the current file.">
+            </action>
+            <action class="com.github.andronikusgametech.ijreplaymod.action.ManageKeyFramesAction"
+                    id="com.github.andronikusgametech.ijreplaymod.ManageKeyFramesActionId"
+                    text="Manage Key Frames" description="Manage key frames.">
+            </action>
+            <action class="com.github.andronikusgametech.ijreplaymod.action.ReplayCodingOfFileAction"
+                    id="com.github.andronikusgametech.ijreplaymod.ReplayCodingOfFileActionId"
+                    text="Replay File Coding" description="Set current file up for coding it to its current version.">
+            </action>
+            <add-to-group
+                    group-id="ToolsMenu"
+                    anchor="after"
+                    relative-to-action="com.github.andronikusgametech.ijreplaymod.KeyFrameFileActionId"/>
+        </group>
+    </actions>
 </idea-plugin>
