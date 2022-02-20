@@ -12,7 +12,7 @@
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.andronikusgametech.ijreplaymod.listeners.MyProjectManagerListener"
+        <listener class="com.github.andronikusgametech.ijreplaymod.listeners.ReplayProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
@@ -20,15 +20,15 @@
         <group id="com.github.andronikusgametech.ijreplaymod.ReplayGroup"
                text="Replay"
                popup="true">
-            <action class="com.github.andronikusgametech.ijreplaymod.action.KeyFrameFileAction"
+            <action class="com.github.andronikusgametech.ijreplaymod.keyframing.KeyFrameFileAction"
                     id="com.github.andronikusgametech.ijreplaymod.KeyFrameFileActionId"
                     text="Add File Key Frame" description="Add keyframe to the current file.">
             </action>
-            <action class="com.github.andronikusgametech.ijreplaymod.action.ManageKeyFramesAction"
+            <action class="com.github.andronikusgametech.ijreplaymod.keyframemanagement.ManageKeyframesAction"
                     id="com.github.andronikusgametech.ijreplaymod.ManageKeyFramesActionId"
                     text="Manage Key Frames" description="Manage key frames.">
             </action>
-            <action class="com.github.andronikusgametech.ijreplaymod.action.ReplayCodingOfFileAction"
+            <action class="com.github.andronikusgametech.ijreplaymod.replay.ReplayCodingOfFileAction"
                     id="com.github.andronikusgametech.ijreplaymod.ReplayCodingOfFileActionId"
                     text="Replay File Coding" description="Set current file up for coding it to its current version.">
             </action>

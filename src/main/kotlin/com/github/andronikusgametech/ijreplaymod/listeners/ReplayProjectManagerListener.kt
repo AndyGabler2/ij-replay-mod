@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
 import com.github.andronikusgametech.ijreplaymod.services.ReplayProjectService
 
-internal class MyProjectManagerListener : ProjectManagerListener {
+internal class ReplayProjectManagerListener : ProjectManagerListener {
 
     override fun projectOpened(project: Project) {
         project.service<ReplayProjectService>()

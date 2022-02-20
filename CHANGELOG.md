@@ -2,6 +2,16 @@
 
 # ij-replay-mod Changelog
 
+## [Unreleased]
+- Setup from template.
+
 ## [0.0.1]
-### Added
+- Setup from template.
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+
+## [1.0.0]
+### Added
+- Submenu under `Tools` called `Replay`
+- - `Add File Key Frame` menu option to add keyframe to current file
+- - `Manage Key Frames` menu option to manage keyframes and move them around
+- - `Replay File Coding` menu option to show replay
