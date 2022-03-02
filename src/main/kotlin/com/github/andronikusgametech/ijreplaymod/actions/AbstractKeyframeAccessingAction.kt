@@ -7,14 +7,13 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.project.Project
 
 abstract class AbstractKeyframeAccessingAction(private val actionLabel: String) : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         val state = getOrCreateProjectState(event)
         val currentDocument = currentDocument(event) ?: return
-        performAction(event.project!!, state, currentDocument)
+        performAction(event, state, currentDocument)
     }
 
     private fun getOrCreateProjectState(event: AnActionEvent): FileKeyframes {
@@ -39,5 +38,5 @@ abstract class AbstractKeyframeAccessingAction(private val actionLabel: String) 
         return textEditor.document;
     }
 
-    abstract fun performAction(project: Project, state: FileKeyframes, currentDocument: Document)
+    abstract fun performAction(event: AnActionEvent, state: FileKeyframes, currentDocument: Document)
 }

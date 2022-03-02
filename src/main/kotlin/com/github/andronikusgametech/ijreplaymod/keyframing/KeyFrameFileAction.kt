@@ -4,14 +4,13 @@ import com.github.andronikusgametech.ijreplaymod.actions.AbstractKeyframeAccessi
 import com.github.andronikusgametech.ijreplaymod.model.FileKeyframeSet
 import com.github.andronikusgametech.ijreplaymod.model.FileKeyframes
 import com.github.andronikusgametech.ijreplaymod.model.Keyframe
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.openapi.project.Project
 
 class KeyFrameFileAction : AbstractKeyframeAccessingAction("add a keyframe") {
 
-    override fun performAction(project: Project, state: FileKeyframes, currentDocument: Document) {
-        println("Key Frame Add Called")
+    override fun performAction(event: AnActionEvent, state: FileKeyframes, currentDocument: Document) {
         val currentVirtualFile = FileDocumentManager.getInstance().getFile(currentDocument)
 
         val path = currentVirtualFile!!.path // TODO ensure this works for new files

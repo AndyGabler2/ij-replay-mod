@@ -149,7 +149,6 @@ class ManageKeyframesPanel(
         }
 
         val text = frameTextInput.text ?: ""
-        println("Update Called [text:$text order:$rawOrder label:$rawLabel]")
         val order = try {
             Integer.parseInt(rawOrder)
         } catch (exception: Exception) {
