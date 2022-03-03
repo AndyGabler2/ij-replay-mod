@@ -16,7 +16,53 @@ class RealtimeDocumentMutator(
 ): IDocumentMutator {
 
     override fun deleteSegment(minimumPosition: Int, maximumPosition: Int) {
+        var currentPosition = maximumPosition
 
+        // Determine line and column
+        val currentText = currentDocument.text
+        var lineIncrement = currentText.substring(0, currentPosition).count { character -> character == '\n' }
+        var columnIncrement = currentPosition - 1
+        if (lineIncrement != 0) {
+            columnIncrement -= currentText.substring(0, currentPosition).lastIndexOf('\n')
+        }
+
+        var lastWriteTime = Date()
+        var semaphore = 0
+
+        while (currentPosition > minimumPosition) {
+            if (semaphore == 0 && TimeUnit.MILLISECONDS.toSeconds(Date().time - lastWriteTime.time) >= 2) {
+                semaphore = 1
+
+                val indexOfDelete = currentPosition - 1
+                if (currentText[indexOfDelete] == '\n') {
+                    lineIncrement--
+                    columnIncrement = currentPosition
+                    if (lineIncrement != 0) {
+                        columnIncrement -= 1
+                        columnIncrement -= currentText.substring(0, indexOfDelete).lastIndexOf('\n')
+                    }
+                }
+
+                WriteCommandAction.runWriteCommandAction(project) {
+                    currentDocument.deleteString(indexOfDelete, currentPosition)
+                    primaryCaret.moveToLogicalPosition(
+                        LogicalPosition(lineIncrement, columnIncrement)
+                    )
+                    primaryCaret.moveToVisualPosition(
+                        VisualPosition(lineIncrement, columnIncrement)
+                    )
+                    scrollingModel.scrollToCaret(ScrollType.MAKE_VISIBLE)
+                    semaphore = 0
+                    lastWriteTime = Date()
+                    currentVirtualFile.refresh(false, false)
+                }
+
+                if (currentText[indexOfDelete] != '\n') {
+                    columnIncrement--
+                }
+                currentPosition--
+            }
+        }
     }
 
     override fun writeSegment(text: String, startingPosition: Int) {
