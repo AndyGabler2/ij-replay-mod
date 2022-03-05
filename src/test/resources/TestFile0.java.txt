@@ -1,0 +1,4 @@
+package com.andronikus.test.util;
+
+public class TestClass {
+}

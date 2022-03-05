@@ -1,0 +1,6 @@
+package com.andronikus.test.util;
+
+public class TestFile {
+
+    private int a;
+}

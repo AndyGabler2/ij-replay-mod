@@ -15,6 +15,17 @@ class RealtimeDocumentMutator(
     private val scrollingModel: ScrollingModel
 ): IDocumentMutator {
 
+    override fun setText(completeText: String) {
+        var semaphore = 1
+
+        WriteCommandAction.runWriteCommandAction(project) {
+            currentDocument.setText(completeText)
+            semaphore = 0
+        }
+
+        while (semaphore != 0) {}
+    }
+
     override fun deleteSegment(minimumPosition: Int, maximumPosition: Int) {
         var currentPosition = maximumPosition
 

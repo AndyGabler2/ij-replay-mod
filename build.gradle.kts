@@ -24,6 +24,11 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation(group = "org.bitbucket.cowwoc", name = "diff-match-patch", version = "1.2")
+    testImplementation(group = "org.mockito", name = "mockito-core", version = "2.1.0")
+}
+
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
