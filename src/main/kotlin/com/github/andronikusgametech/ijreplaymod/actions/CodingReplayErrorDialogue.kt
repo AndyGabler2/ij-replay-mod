@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.actions
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import java.awt.BorderLayout
@@ -13,7 +14,7 @@ class CodingReplayErrorDialogue(
 ): DialogWrapper(project) {
 
     init {
-        title = "Coding Replay Error"
+        title = CodingReplayBundle.getProperty("cr.ui.errorDialogue.title")
         init()
     }
 

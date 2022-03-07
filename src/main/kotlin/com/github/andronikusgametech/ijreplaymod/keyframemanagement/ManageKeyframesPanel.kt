@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.keyframemanagement
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import java.awt.BorderLayout
 import java.awt.GridLayout
 import java.awt.event.ActionEvent
@@ -52,15 +53,15 @@ class ManageKeyframesPanel(
          * Setup the the panels for Keyframe list and Frame details.
          */
         frameListPanel = JPanel(BorderLayout())
-        frameListPanel.add(JLabel("Keyframes"), BorderLayout.NORTH)
+        frameListPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.keyFrames")), BorderLayout.NORTH)
         frameDetailsPanel = JPanel(BorderLayout())
-        frameDetailsPanel.add(JLabel("Frame Details"), BorderLayout.NORTH)
+        frameDetailsPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.frameDetails")), BorderLayout.NORTH)
 
         /*
          * Setup the top of the left panel for Keyframes
          */
         val frameListCenterPanel = JPanel(BorderLayout())
-        toggleDeleteButton = JButton("Toggle Delete")
+        toggleDeleteButton = JButton(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.toggleDelete"))
         toggleDeleteButton.addActionListener(this)
         toggleDeleteButton.isEnabled = false
         val frameListActionsPanel = JPanel(GridLayout(2, 1))
@@ -83,7 +84,7 @@ class ManageKeyframesPanel(
          * Setup panel on right for keyframe details.
          */
         val frameDetailCenterPanel = JPanel(BorderLayout())
-        updateButton = JButton("Update")
+        updateButton = JButton(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.update"))
         updateButton.addActionListener(this)
         updateButton.isEnabled = false
         val frameDetailActionsPanel = JPanel(GridLayout(2, 1))
@@ -100,11 +101,11 @@ class ManageKeyframesPanel(
          */
         val cardPanel = JTabbedPane()
         val metaDataPanel = JPanel(GridLayout(9, 2))
-        metaDataPanel.add(JLabel("Label"))
+        metaDataPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.label")))
         frameLabelInput = JTextField("")
         frameLabelInput.isEditable = false
         metaDataPanel.add(frameLabelInput)
-        metaDataPanel.add(JLabel("Order"))
+        metaDataPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.order")))
         frameOrderInput = JTextField("")
         frameOrderInput.isEditable = false
         metaDataPanel.add(frameOrderInput)
@@ -115,8 +116,8 @@ class ManageKeyframesPanel(
         scrollPane.verticalScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED
         scrollPane.horizontalScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
         textPanel.add(scrollPane, BorderLayout.CENTER)
-        cardPanel.addTab("Frame Details", metaDataPanel)
-        cardPanel.addTab("Text", textPanel)
+        cardPanel.addTab(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.frameDetails"), metaDataPanel)
+        cardPanel.addTab(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.text"), textPanel)
         frameDetailCenterPanel.add(cardPanel, BorderLayout.CENTER)
 
         add(frameListPanel)
@@ -141,10 +142,10 @@ class ManageKeyframesPanel(
         val rawLabel = frameLabelInput.text
         val rawOrder = frameOrderInput.text
         if (rawLabel.isNullOrEmpty()) {
-            updateButtonFeedBackLabel.text = "Frame must have Label!"
+            updateButtonFeedBackLabel.text = CodingReplayBundle.getProperty("cr.ui.keyframeManagement.feedback.noLabel")
             return
         } else if (rawOrder.isNullOrEmpty()) {
-            updateButtonFeedBackLabel.text = "Frame must have Order!"
+            updateButtonFeedBackLabel.text = CodingReplayBundle.getProperty("cr.ui.keyframeManagement.feedback.noOrder")
             return
         }
 
@@ -152,7 +153,7 @@ class ManageKeyframesPanel(
         val order = try {
             Integer.parseInt(rawOrder)
         } catch (exception: Exception) {
-            updateButtonFeedBackLabel.text = "Invalid order of \"$rawOrder\"."
+            updateButtonFeedBackLabel.text = CodingReplayBundle.getProperty("cr.ui.keyframeManagement.feedback.invalidOrder", rawOrder)
             return
         }
 
@@ -165,7 +166,9 @@ class ManageKeyframesPanel(
 
     private fun updateTree() {
 
-        val rootTreeModel = DefaultMutableTreeNode("Coding Replay Keyframes ($fileName)")
+        val rootTreeModel = DefaultMutableTreeNode(
+            CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.treeRoot", fileName)
+        )
 
         wrappers.sortedBy { wrapper -> wrapper.order }.forEach { wrapper ->
             val wrapperTreeNode = DefaultMutableTreeNode(wrapper)

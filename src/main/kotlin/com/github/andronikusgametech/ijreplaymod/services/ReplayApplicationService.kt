@@ -1,10 +1,12 @@
 package com.github.andronikusgametech.ijreplaymod.services
 
-import com.github.andronikusgametech.ijreplaymod.MyBundle
+import org.slf4j.LoggerFactory
 
 class ReplayApplicationService {
 
+    private val logger = LoggerFactory.getLogger("ReplayApplicationService")
+
     init {
-        println(MyBundle.message("applicationService"))
+        logger.info("Replay Application service initialized.")
     }
 }

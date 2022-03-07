@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.keyframemanagement
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.github.andronikusgametech.ijreplaymod.model.Keyframe
 
 class KeyframeManagementWrapper(
@@ -10,9 +11,9 @@ class KeyframeManagementWrapper(
     val underlyingFrame: Keyframe
 ) {
     override fun toString(): String {
-        var label = "$label (Order: $order)"
+        var label = CodingReplayBundle.getProperty("cr.ui.keyframeManagement.keyframeLabel", label, order)
         if (isMarkedForDelete) {
-            label += " [MARKED FOR DELETE]"
+            label += CodingReplayBundle.getProperty("cr.ui.keyframeManagement.keyframeLabel.markedForDelete")
         }
 
         return label

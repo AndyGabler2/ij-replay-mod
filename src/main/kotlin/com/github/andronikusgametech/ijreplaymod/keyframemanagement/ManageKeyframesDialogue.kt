@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.keyframemanagement
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.github.andronikusgametech.ijreplaymod.model.FileKeyframeSet
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -22,7 +23,7 @@ class ManageKeyframesDialogue(
     private val fileName: String = documentToVirtualFileNameTransformer.invoke(currentDocument)
 
     init {
-        title = "Key Frame Manager ($fileName)"
+        title = CodingReplayBundle.getProperty("cr.ui.keyframeManagement.title", fileName)
         wrappers = initWrapper(frameSet)
         init()
     }

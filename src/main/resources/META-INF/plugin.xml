@@ -9,6 +9,12 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.ReplayApplicationService"/>
         <projectService serviceImplementation="com.github.andronikusgametech.ijreplaymod.services.ReplayProjectService"/>
+        <projectConfigurable
+            parentId="tools"
+            instance="com.github.andronikusgametech.ijreplaymod.settings.ReplaySettingsConfigurable"
+            id="com.github.andronikusgametech.ijreplaymod.settings.ReplaySettingsConfigurable"
+            displayName="Replay Settings"
+            nonDefaultProject="true" />
     </extensions>
 
     <applicationListeners>

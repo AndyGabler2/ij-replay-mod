@@ -1,19 +1,31 @@
 package com.github.andronikusgametech.ijreplaymod.util
 
 import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.editor.*
+import com.intellij.openapi.editor.Caret
+import com.intellij.openapi.editor.Document
+import com.intellij.openapi.editor.LogicalPosition
+import com.intellij.openapi.editor.ScrollingModel
+import com.intellij.openapi.editor.ScrollType
+import com.intellij.openapi.editor.VisualPosition
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import java.util.*
-import java.util.concurrent.TimeUnit
+import java.util.Date
 
 class RealtimeDocumentMutator(
     private val currentDocument: Document,
     private val project: Project,
     private val primaryCaret: Caret,
     private val currentVirtualFile: VirtualFile,
-    private val scrollingModel: ScrollingModel
+    private val scrollingModel: ScrollingModel,
+    delayType: String,
+    private val delay: Int
 ): IDocumentMutator {
+
+    private val delayType: DelayType
+
+    init {
+        this.delayType = DelayType.values().first { type -> type.typeLabel.equals(delayType, true) }
+    }
 
     override fun setText(completeText: String) {
         var semaphore = 1
@@ -41,7 +53,7 @@ class RealtimeDocumentMutator(
         var semaphore = 0
 
         while (currentPosition > minimumPosition) {
-            if (semaphore == 0 && TimeUnit.MILLISECONDS.toSeconds(Date().time - lastWriteTime.time) >= 2) {
+            if (semaphore == 0 && delayType.converter.apply(Date().time - lastWriteTime.time) >= delay) {
                 semaphore = 1
 
                 val indexOfDelete = currentPosition - 1
@@ -93,7 +105,7 @@ class RealtimeDocumentMutator(
         var semaphore = 0
 
         while (textIncrement < text.length) {
-            if (semaphore == 0 && TimeUnit.MILLISECONDS.toSeconds(Date().time - lastWriteTime.time) >= 2) {
+            if (semaphore == 0 && delayType.converter.apply(Date().time - lastWriteTime.time) >= delay) {
                 semaphore = 1
 
                 if (text[textIncrement] == '\n') {

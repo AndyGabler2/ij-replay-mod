@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.replay
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.github.andronikusgametech.ijreplaymod.model.FileKeyframeSet
 import java.awt.BorderLayout
 import java.awt.GridLayout
@@ -20,8 +21,8 @@ class ReplayKeyframeSelectorPanel(
         val keyFrameRootPanel = JPanel(BorderLayout())
         val optionsRootPanel = JPanel(BorderLayout())
 
-        keyFrameRootPanel.add(JLabel("Keyframes"), BorderLayout.PAGE_START)
-        optionsRootPanel.add(JLabel("Options"), BorderLayout.PAGE_START)
+        keyFrameRootPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.keyframeManagement.panel.keyFrames")), BorderLayout.PAGE_START)
+        optionsRootPanel.add(JLabel(CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.options")), BorderLayout.PAGE_START)
 
         val keyFramesContentPanel = JPanel(GridLayout(frameSet.keyFrames.size, 1))
         frameSet.keyFrames.sortedBy { frame -> frame.order }.forEach { frame ->
@@ -32,8 +33,14 @@ class ReplayKeyframeSelectorPanel(
         keyFrameRootPanel.add(keyFramesContentPanel, BorderLayout.CENTER)
 
         val optionsContentPanel = JPanel(GridLayout(2, 1))
-        addBlankFrameCheckBox = JCheckBox("Add Blank Keyframe Before First", false)
-        useLatestVersionAsLastKeyframeCheckBox = JCheckBox("Add Current Version as Last Keyframe", false)
+        addBlankFrameCheckBox = JCheckBox(
+            CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.option.addBlankFrame"),
+            false
+        )
+        useLatestVersionAsLastKeyframeCheckBox = JCheckBox(
+            CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.option.addCurrentVersion"),
+            false
+        )
         optionsContentPanel.add(addBlankFrameCheckBox)
         optionsContentPanel.add(useLatestVersionAsLastKeyframeCheckBox)
         optionsRootPanel.add(optionsContentPanel, BorderLayout.CENTER)

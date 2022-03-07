@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.replay
 
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.github.andronikusgametech.ijreplaymod.model.FileKeyframeSet
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -24,7 +25,7 @@ class ReplayKeyframeSelectorDialogue(
     private var textVersions = mutableListOf<String>()
 
     init {
-        title = "Select Keyframes to Replay ($fileName)"
+        title = CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.title", fileName)
         init()
     }
 
@@ -36,11 +37,11 @@ class ReplayKeyframeSelectorDialogue(
     override fun doValidate(): ValidationInfo? {
         // TODO perhaps just virtual frame empty to current version is okay
         if (!panel.isAtLeastOneKeyframeSelected()) {
-            return ValidationInfo("At least one keyframe must be selected.")
+            return ValidationInfo(CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.noFrames"))
         }
 
         if (!panel.areSufficientOptionsSelected()) {
-            return ValidationInfo("If only one keyframe is selected, must add keyframe with current version or from blank file.")
+            return ValidationInfo(CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.insufficientOptions"))
         }
 
         makeTextVersionsFromPanel()

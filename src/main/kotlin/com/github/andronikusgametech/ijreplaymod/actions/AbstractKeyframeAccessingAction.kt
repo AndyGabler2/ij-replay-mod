@@ -1,6 +1,7 @@
 package com.github.andronikusgametech.ijreplaymod.actions
 
-import com.github.andronikusgametech.ijreplaymod.model.FileKeyframes
+import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
+import com.github.andronikusgametech.ijreplaymod.model.CodingReplayState
 import com.github.andronikusgametech.ijreplaymod.services.ReplayProjectService
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -16,12 +17,12 @@ abstract class AbstractKeyframeAccessingAction(private val actionLabel: String) 
         performAction(event, state, currentDocument)
     }
 
-    private fun getOrCreateProjectState(event: AnActionEvent): FileKeyframes {
+    private fun getOrCreateProjectState(event: AnActionEvent): CodingReplayState {
         val project = event.project!!
         val service = project.service<ReplayProjectService>()
         var state = service.state
         if (state == null) {
-            state = FileKeyframes()
+            state = CodingReplayState()
             service.setState(state)
         }
         return state
@@ -31,12 +32,15 @@ abstract class AbstractKeyframeAccessingAction(private val actionLabel: String) 
         val project = event.project!!
         val textEditor = FileEditorManager.getInstance(project).selectedTextEditor
         if (textEditor == null) {
-            CodingReplayErrorDialogue(project, "Must have a file open to $actionLabel.").show()
+            CodingReplayErrorDialogue(
+                project,
+                CodingReplayBundle.getProperty("cr.ui.errorDialogue.errorMessage.noFile", actionLabel)
+            ).show()
             return null
         }
 
         return textEditor.document;
     }
 
-    abstract fun performAction(event: AnActionEvent, state: FileKeyframes, currentDocument: Document)
+    abstract fun performAction(event: AnActionEvent, state: CodingReplayState, currentDocument: Document)
 }
