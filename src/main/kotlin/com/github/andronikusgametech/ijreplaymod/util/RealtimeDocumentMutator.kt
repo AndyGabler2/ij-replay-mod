@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.util
 
+import com.github.andronikusgametech.ijreplaymod.stopper.ReplayStopFlag
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Caret
 import com.intellij.openapi.editor.Document
@@ -19,7 +20,7 @@ class RealtimeDocumentMutator(
     private val scrollingModel: ScrollingModel,
     delayType: String,
     private val delay: Int
-): IDocumentMutator {
+): IDocumentMutator, ReplayStopFlag() {
 
     private val delayType: DelayType
 
@@ -28,6 +29,10 @@ class RealtimeDocumentMutator(
     }
 
     override fun setText(completeText: String) {
+        if (isStopped()) {
+            return
+        }
+
         var semaphore = 1
 
         WriteCommandAction.runWriteCommandAction(project) {
@@ -35,7 +40,7 @@ class RealtimeDocumentMutator(
             semaphore = 0
         }
 
-        while (semaphore != 0) {}
+        while (semaphore != 0 && !isStopped()) {}
     }
 
     override fun deleteSegment(minimumPosition: Int, maximumPosition: Int) {
@@ -52,7 +57,7 @@ class RealtimeDocumentMutator(
         var lastWriteTime = Date()
         var semaphore = 0
 
-        while (currentPosition > minimumPosition) {
+        while (currentPosition > minimumPosition && !isStopped()) {
             if (semaphore == 0 && delayType.converter.apply(Date().time - lastWriteTime.time) >= delay) {
                 semaphore = 1
 
@@ -104,7 +109,7 @@ class RealtimeDocumentMutator(
         var lastWriteTime = Date()
         var semaphore = 0
 
-        while (textIncrement < text.length) {
+        while (textIncrement < text.length && !isStopped()) {
             if (semaphore == 0 && delayType.converter.apply(Date().time - lastWriteTime.time) >= delay) {
                 semaphore = 1
 

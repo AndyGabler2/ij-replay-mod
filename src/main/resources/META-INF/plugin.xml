@@ -38,6 +38,10 @@
                     id="com.github.andronikusgametech.ijreplaymod.ReplayCodingOfFileActionId"
                     text="Replay File Coding" description="Set current file up for coding it to its current version.">
             </action>
+            <action class="com.github.andronikusgametech.ijreplaymod.stopper.StopReplayAction"
+                    id="com.github.andronikusgametech.ijreplaymod.stopper.StopReplayAction"
+                    text="Stop Replays" description="Stop any running replays.">
+            </action>
             <add-to-group
                     group-id="ToolsMenu"
                     anchor="after"

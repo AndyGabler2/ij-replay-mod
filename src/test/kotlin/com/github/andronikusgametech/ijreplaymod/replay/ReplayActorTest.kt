@@ -1,5 +1,6 @@
 package com.github.andronikusgametech.ijreplaymod.replay
 
+import com.github.andronikusgametech.ijreplaymod.stopper.ReplayStopFlag
 import com.github.andronikusgametech.ijreplaymod.util.IDocumentMutator
 import com.intellij.testFramework.TestDataPath
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -16,7 +17,7 @@ class ReplayActorTest : BasePlatformTestCase() {
     override fun setUp() {
         super.setUp()
         documentMutator = Mockito.mock(IDocumentMutator::class.java)
-        objectUnderTest = ReplayActor(documentMutator)
+        objectUnderTest = ReplayActor(documentMutator, ReplayStopFlag())
     }
 
     fun testRun_happyPath() {

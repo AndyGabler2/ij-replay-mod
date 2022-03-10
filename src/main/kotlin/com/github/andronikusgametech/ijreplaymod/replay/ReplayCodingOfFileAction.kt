@@ -4,15 +4,19 @@ import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.github.andronikusgametech.ijreplaymod.actions.AbstractKeyframeAccessingAction
 import com.github.andronikusgametech.ijreplaymod.actions.CodingReplayErrorDialogue
 import com.github.andronikusgametech.ijreplaymod.model.CodingReplayState
+import com.github.andronikusgametech.ijreplaymod.services.ReplayProjectService
 import com.github.andronikusgametech.ijreplaymod.util.RealtimeDocumentMutator
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.util.concurrency.AppExecutorUtil
 
-class ReplayCodingOfFileAction : AbstractKeyframeAccessingAction("replay file coding") {
+class ReplayCodingOfFileAction : AbstractKeyframeAccessingAction(
+    CodingReplayBundle.getProperty("cr.ui.replay.frameSelector.actionLabel")
+) {
 
     override fun performAction(event: AnActionEvent, state: CodingReplayState, currentDocument: Document) {
         val project = event.project!!
@@ -37,7 +41,9 @@ class ReplayCodingOfFileAction : AbstractKeyframeAccessingAction("replay file co
                     document, project, primaryCaret, virtualFile,
                     editor.scrollingModel, state.replayDelayType, state.replayDelay
                 )
-                val actor = ReplayActor(mutator)
+                val actor = ReplayActor(mutator, mutator)
+                val service = project.service<ReplayProjectService>()
+                service.registerReplayActor(actor)
                 actor.run(selectorDialogue.textVersions())
             }
         }

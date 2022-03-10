@@ -1,4 +1,4 @@
-package com.github.andronikusgametech.ijreplaymod.actions
+package com.github.andronikusgametech.ijreplaymod.stopper
 
 import com.github.andronikusgametech.ijreplaymod.CodingReplayBundle
 import com.intellij.openapi.project.Project
@@ -8,20 +8,19 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 
-class CodingReplayErrorDialogue(
-    project: Project,
-    private val error: String
+class ReplaysStoppedDialogue(
+    project: Project
 ): DialogWrapper(project) {
 
     init {
-        title = CodingReplayBundle.getProperty("cr.ui.errorDialogue.title")
+        title = CodingReplayBundle.getProperty("cr.ui.stopper.confirmation.title")
         init()
     }
 
     override fun createCenterPanel(): JComponent? {
         val dialogPanel = JPanel(BorderLayout())
 
-        val label = JLabel(error)
+        val label = JLabel(CodingReplayBundle.getProperty("cr.ui.stopper.confirmation.body"))
         dialogPanel.add(label, BorderLayout.CENTER)
 
         return dialogPanel

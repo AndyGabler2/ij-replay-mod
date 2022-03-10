@@ -12,6 +12,9 @@
 ## [1.0.0]
 ### Added
 - Submenu under `Tools` called `Replay`
-- - `Add File Key Frame` menu option to add keyframe to current file
-- - `Manage Key Frames` menu option to manage keyframes and move them around
-- - `Replay File Coding` menu option to show replay
+  - `Add File Key Frame` menu option to add keyframe to current file
+  - `Manage Key Frames` menu option to manage keyframes and move them around
+  - `Replay File Coding` menu option to show replay
+  - `Stop Replays` menu option to terminate replays
+- New submenu under `Settings`>`Tools` called `Replay Settings`
+  - Has options for speed settings for replays
