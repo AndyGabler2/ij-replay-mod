@@ -1,8 +1,8 @@
 package com.github.andronikusgametech.ijreplaymod.replay
 
 import com.github.andronikusgametech.ijreplaymod.stopper.ReplayStopFlag
+import com.github.andronikusgametech.ijreplaymod.util.DiffMatchPatch
 import com.github.andronikusgametech.ijreplaymod.util.IDocumentMutator
-import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 
 class ReplayActor(
     private val documentMutator: IDocumentMutator,
@@ -34,15 +34,15 @@ class ReplayActor(
                     }
                     when (diff.operation) {
                         DiffMatchPatch.Operation.DELETE -> {
-                            documentMutator.deleteSegment(positionalIndex, positionalIndex + diff.text.length)
+                            documentMutator.deleteSegment(positionalIndex, positionalIndex + diff.text!!.length)
                         }
                         DiffMatchPatch.Operation.INSERT -> {
-                            documentMutator.writeSegment(diff.text, positionalIndex)
-                            positionalIndex += diff.text.length
+                            documentMutator.writeSegment(diff.text!!, positionalIndex)
+                            positionalIndex += diff.text!!.length
                         }
                         else -> {
                             // Presumed to be be EQUAL
-                            positionalIndex += diff.text.length
+                            positionalIndex += diff.text!!.length
                         }
                     }
                 }

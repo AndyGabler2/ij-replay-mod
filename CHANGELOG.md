@@ -18,3 +18,9 @@
   - `Stop Replays` menu option to terminate replays
 - New submenu under `Settings`>`Tools` called `Replay Settings`
   - Has options for speed settings for replays
+  
+## [1.0.1]
+### Fixed
+ - Compatibility with IntelliJ
+### Changed
+ - Replaced the plugin icon.
