@@ -24,3 +24,7 @@
  - Compatibility with IntelliJ
 ### Changed
  - Replaced the plugin icon.
+
+## [1.0.2]
+### Fixed
+ - Plugin now compatible with IntelliJ IDEA 2022.1.1
