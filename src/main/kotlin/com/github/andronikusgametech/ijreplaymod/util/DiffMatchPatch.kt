@@ -323,6 +323,7 @@ class DiffMatchPatch() {
                     textDelete = ""
                     textInsert = ""
                 }
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
             thisDiff = if (pointer.hasNext()) pointer.next() else null
         }
@@ -1287,6 +1288,7 @@ class DiffMatchPatch() {
                     textInsert = ""
                     prevEqual = thisDiff
                 }
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
             thisDiff = if (pointer.hasNext()) pointer.next() else null
         }
@@ -1404,6 +1406,7 @@ class DiffMatchPatch() {
                 Operation.DELETE -> html.append("<del style=\"background:#ffe6e6;\">").append(text)
                     .append("</del>")
                 Operation.EQUAL -> html.append("<span>").append(text).append("</span>")
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
         }
         return html.toString()
@@ -1462,6 +1465,7 @@ class DiffMatchPatch() {
                     insertions = 0
                     deletions = 0
                 }
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
         }
         levenshtein += Math.max(insertions, deletions)
@@ -1492,6 +1496,7 @@ class DiffMatchPatch() {
                 }
                 Operation.DELETE -> text.append("-").append(aDiff.text!!.length).append("\t")
                 Operation.EQUAL -> text.append("=").append(aDiff.text!!.length).append("\t")
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
         }
         var delta = text.toString()
@@ -1940,6 +1945,7 @@ class DiffMatchPatch() {
                         }
                     }
                 }
+                null -> throw IllegalStateException("Operation must be non-null.")
             }
 
             // Update the current character count.
@@ -2522,6 +2528,7 @@ class DiffMatchPatch() {
                     Operation.INSERT -> text.append('+')
                     Operation.DELETE -> text.append('-')
                     Operation.EQUAL -> text.append(' ')
+                    null -> throw IllegalStateException("Operation must be non-null.")
                 }
                 try {
                     text.append(URLEncoder.encode(aDiff.text, "UTF-8").replace('+', ' '))

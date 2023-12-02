@@ -28,3 +28,7 @@
 ## [1.0.2]
 ### Fixed
  - Plugin now compatible with IntelliJ IDEA 2022.1.1
+
+## [1.0.3]
+### Fixed
+- Plugin now compatible with IntelliJ IDEA 2023.2.5
